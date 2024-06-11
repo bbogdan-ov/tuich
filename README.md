@@ -10,7 +10,7 @@ A simple rust library to simplify TUIs develpment!
 For now you can only install TUICH via git:
 ```toml
 [dependencies]
-tuich = { git = "https://github.io/bbogdan-ov/tuich" }
+tuich = { git = "https://github.com/bbogdan-ov/tuich" }
 ```
 
 I think TUICH isn't ready to be uploded to [crates.io](https://crates.io) yet
