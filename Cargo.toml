@@ -1,0 +1,128 @@
+[package]
+name = "tuich"
+description = "Create tuis easily"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/bbogdan-ov/tuich"
+keywords = ["tuich", "tui", "ui", "terminal"]
+categories = ["command-line-interface"]
+
+
+[dependencies]
+compact_str = "0.7.1"
+stringslice = "0.2.0"
+unicode-segmentation = "1.11.0"
+unicode-width = "0.1.13"
+
+[dependencies.crossterm]
+version = "0.27.0"
+optional = true
+
+[dependencies.serde]
+version = "1.0.203"
+features = ["derive"]
+optional = true
+
+
+[dev-dependencies]
+toml = "0.8.13"
+
+
+[features]
+default = [
+	"backend-crossterm",
+	"backend-crossterm-event",
+	"widget-all",
+	"text-all",
+	"state-all",
+	"layout-all"
+]
+
+# Enables event backend
+backend-event = []
+
+# Enables [crossterm](https://docs.rs/crossterm) backend
+backend-crossterm = ["dep:crossterm"]
+backend-crossterm-event = ["backend-crossterm", "backend-event"]
+
+# Enables [serde](https://docs.rs/serde) implementations, for example for [Style]
+# Uses renames fields to `snake_case`
+serde = ["dep:serde"]
+
+# Enables all text features:
+# - `text-span`
+# - `text-wrap`
+text-all = [
+	"text-span",
+	"text-wrap",
+	"text-stylized",
+]
+# Enables [Span]
+text-span = []
+# Enables text wrap module
+text-wrap = []
+# Enables stylize module
+text-stylized = []
+
+# Enables all widgets
+widget-all = [
+	"widget-paragraph",
+	"widget-block",
+	"widget-list",
+	"widget-prompt"
+]
+# Enables [Paragraph] widget and features:
+# - `text-span`
+widget-paragraph = ["text-span"]
+# Enables [Block] widget
+widget-block = []
+# Enables [List] widget
+widget-list = []
+# Enables [Prompt] widget and features:
+# - `state-prompt`
+widget-prompt = ["state-prompt"]
+
+# Enables all layout features:
+# - `layout-stack`
+layout-all = [
+	"layout-stack"
+]
+# Enables [Stack]
+layout-stack = []
+
+# Enables all states features:
+# - `state-prompt`
+state-all = [
+	"state-prompt"
+]
+# Enables [PromptState]
+state-prompt = []
+
+
+[[example]]
+name = "simple"
+required-features = [
+	"backend-crossterm",
+	"backend-crossterm-event",
+]
+
+[[example]]
+name = "text-wrapping"
+required-features = [
+	"backend-crossterm",
+	"backend-crossterm-event",
+	"widget-all",
+	"text-all"
+]
+
+[[example]]
+name = "todo"
+required-features = [
+	"backend-crossterm",
+	"backend-crossterm-event",
+	"widget-all",
+	"text-all",
+	"state-all"
+]
