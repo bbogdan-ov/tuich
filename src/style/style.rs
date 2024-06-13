@@ -40,7 +40,18 @@ impl Style {
             ..Default::default()
         }
     }
-    pub fn cleared() -> Self {
+    pub const fn empty() -> Self {
+        Self {
+            fg: None,
+            bg: None,
+            bold: None,
+            italic: None,
+            reverse: None,
+            underline: None,
+            underline_kind: None
+        }
+    }
+    pub const fn cleared() -> Self {
         Self {
             fg: Some(Color::Reset),
             bg: Some(Color::Reset),
