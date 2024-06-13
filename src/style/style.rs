@@ -40,7 +40,7 @@ impl Style {
             ..Default::default()
         }
     }
-    pub fn clear() -> Self {
+    pub fn cleared() -> Self {
         Self {
             fg: Some(Color::Reset),
             bg: Some(Color::Reset),

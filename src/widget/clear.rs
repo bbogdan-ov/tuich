@@ -15,8 +15,8 @@ impl Clear {
         }
     }
     /// Creates a [Clear] that fills an area with an empty [Cell]
-    pub fn empty() -> Self {
-        Self::new(Cell::clear())
+    pub fn clear() -> Self {
+        Self::new(Cell::cleared())
     }
 }
 impl Draw for Clear {

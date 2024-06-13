@@ -29,10 +29,10 @@ impl Cell {
             display_width
         }
     }
-    pub fn clear() -> Self {
+    pub fn cleared() -> Self {
         Self {
             char: Some(" ".into()),
-            style: Style::clear(),
+            style: Style::cleared(),
             display_width: 1
         }
     }
