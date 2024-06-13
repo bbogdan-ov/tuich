@@ -1,8 +1,7 @@
 use compact_str::CompactString;
 use unicode_segmentation::UnicodeSegmentation;
-use unicode_width::UnicodeWidthStr;
 
-use crate::{layout::{Point, Rect}, style::Style, widget::Draw};
+use crate::{layout::{Point, Rect}, style::Style, widget::RefDraw};
 
 use super::Cell;
 
@@ -210,13 +209,13 @@ impl Buffer {
         self.size().into()
     }
 }
-impl Draw for Buffer {
+impl RefDraw for Buffer {
     /// Marge this buffer with another
     /// 
     /// # Notes
     ///
     /// - this buffer will be cropped if `rect` is smaller than rect of this buffer
-    fn draw(self, buf: &mut Buffer, rect: Rect) -> Rect {
+    fn draw(&self, buf: &mut Buffer, rect: Rect) -> Rect {
         let rect = self.rect().min(rect);
 
         for y in 0..rect.height {
