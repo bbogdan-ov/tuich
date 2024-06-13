@@ -28,7 +28,7 @@ impl Buffer {
     }
     /// Creates a [Buffer] filled with empty [Cell]
     pub fn empty(width: u16, height: u16) -> Self {
-        Self::filled(width, height, &Cell::clear())
+        Self::filled(width, height, &Cell::default())
     }
 
     //
@@ -45,13 +45,13 @@ impl Buffer {
         } else {
             // If number of cells hasn't changed, just update all cells
             for c in &mut self.cells {
-                c.set_cell(cell.clone());
+                *c = cell.clone();
             }
         }
     }
     /// Clear/reset all cells
     pub fn clear(&mut self) {
-        self.fill_with(&Cell::clear());
+        self.fill_with(&Cell::default());
     }
     /// Clear the buffer and set size
     pub fn resize(&mut self, width: u16, height: u16) {
