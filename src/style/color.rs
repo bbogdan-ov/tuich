@@ -1,3 +1,5 @@
+use super::{Style, Stylized};
+
 /// Color
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature="serde", derive(serde::Serialize, serde::Deserialize), serde(rename_all="snake_case"))]
@@ -42,6 +44,18 @@ impl From<(u8, u8, u8)> for Color {
     /// Creates [Color::Rgb] from the RGB tuple `(red, green, blue)`
     fn from(v: (u8, u8, u8)) -> Self {
         Self::Rgb(v.0, v.1, v.2)
+    }
+}
+
+#[cfg(feature="text-stylized")]
+impl Stylized for Color {
+    type Output = Style;
+
+    fn style<S: Into<Style>>(self, style: S) -> Self::Output {
+        style.into()
+    }
+    fn get_style(&self) -> Style {
+        Style::from(*self)
     }
 }
 
