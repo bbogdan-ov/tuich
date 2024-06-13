@@ -138,6 +138,31 @@ mod tests {
         assert_eq!(Style::from((Color::Green, ())), Style::new(Color::Green, Color::Reset));
         assert_eq!(Style::from((Color::Green, Color::Blue)), Style::new(Color::Green, Color::Blue));
     }
+    #[test]
+    fn set_style() {
+        let empty = Style::default();
+        let fg = Style::default()
+            .fg(Color::Gray);
+        let attr = Style::default()
+            .bg(Color::Reset)
+            .bold(true);
+
+        let a = Style::default()
+            .fg(Color::Red)
+            .bg(Color::Green);
+        let b = Style::default()
+            .fg(Color::Blue)
+            .bold(true);
+
+        assert_eq!(empty.set(a), a);
+        assert_eq!(empty.set(b), b);
+
+        assert_eq!(fg.set(a), Style::new(Color::Red, Color::Green));
+        assert_eq!(fg.set(b), Style::default().fg(Color::Blue).bold(true));
+
+        assert_eq!(attr.set(a), Style::new(Color::Red, Color::Green).bold(true));
+        assert_eq!(attr.set(b), Style::new(Color::Blue, Color::Reset).bold(true));
+    }
 }
 
 #[cfg(test)]
