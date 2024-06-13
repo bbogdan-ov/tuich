@@ -55,9 +55,9 @@ impl Buffer {
     }
     /// Clear the buffer and set size
     pub fn resize(&mut self, width: u16, height: u16) {
-        self.clear();
         self.width = width;
         self.height = height;
+        self.clear();
     }
     
     /// Set a string with limited width in some position
@@ -70,19 +70,11 @@ impl Buffer {
         let style: Style = style.into();
 
         let mut width = 0u16;
-        //let mut skip_next = false;
 
         for char in string.graphemes(true).skip(offset as usize) {
             if width >= max_width {
                 break;
             }
-            //if skip_next {
-            //    skip_next = false;
-            //    continue;
-            //}
-            //if char.width() == 2 {
-            //    skip_next = true;
-            //}
 
             self.set(pos.add((width, 0)), Some(char), style);
             width = width.saturating_add(1);
@@ -226,5 +218,21 @@ impl RefDraw for Buffer {
         }
 
         rect
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn resize_buffer() {
+        let mut buf = Buffer::empty(2, 2);
+
+        assert_eq!(buf.cells.len(), 4, "Before resize");
+
+        buf.resize(3, 3);
+
+        assert_eq!(buf.cells.len(), 9, "After resize");
     }
 }
