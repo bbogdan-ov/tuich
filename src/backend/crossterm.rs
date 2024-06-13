@@ -262,28 +262,24 @@ pub fn write_style(f: &mut impl Write, style: &Style, last_style: &Style) -> io:
             None => ()
         }
     } else if last_style.underline.is_some_and(|v| v) {
-        write!(f, "{}", Attribute::Reset)?;
         reset_attr = true;
     }
 
     if style.bold.is_some_and(|v| v) {
         write!(f, "{}", Attribute::Bold)?;
     } else if last_style.bold.is_some_and(|v| v) {
-        write!(f, "{}", Attribute::Reset)?;
         reset_attr = true;
     }
 
     if style.italic.is_some_and(|v| v) {
         write!(f, "{}", Attribute::Italic)?;
     } else if last_style.italic.is_some_and(|v| v) {
-        write!(f, "{}", Attribute::Reset)?;
         reset_attr = true;
     }
 
     if style.reverse.is_some_and(|v| v) {
         write!(f, "{}", Attribute::Reverse)?;
     } else if last_style.reverse.is_some_and(|v| v) {
-        write!(f, "{}", Attribute::Reset)?;
         reset_attr = true;
     }
 
