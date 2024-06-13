@@ -104,6 +104,15 @@ impl Buffer {
             false
         }
     }
+    /// Override the cell at given position
+    pub fn force_set<C: Into<Cell>>(&mut self, pos: (u16, u16), cell: C) -> bool {
+        if let Some(c) = self.get_mut(pos) {
+            *c = cell.into();
+            true
+        } else {
+            false
+        }
+    }
     /// Set cell in some position
     /// Same as [Buffer::set], but using [Cell]
     /// Returns successfully or not
