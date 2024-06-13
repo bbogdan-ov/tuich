@@ -72,7 +72,7 @@ impl From<Style> for Cell {
 }
 impl From<Color> for Cell {
     fn from(value: Color) -> Self {
-        Self::new(Some(" "), Style::default().bg(value))
+        Self::new(Some(" "), Style::cleared().bg(value))
     }
 }
 impl<C, S> From<(C, S)> for Cell
