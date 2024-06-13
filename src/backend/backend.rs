@@ -19,6 +19,8 @@ pub trait Backend {
     fn place_cursor(&mut self, x: u16, y: u16) -> Result<(), Self::Error>;
     /// Write a style to the terminal output
     fn write_style(&mut self, style: &Style, last_style: &Style) -> Result<(), Self::Error>;
+    /// Reset all applied styles
+    fn write_reset(&mut self) -> Result<(), Self::Error>;
 
     /// Write a buffer to the terminal output
     fn write_buffer(&mut self, buffer: &Buffer) -> Result<(), Self::Error> {
@@ -55,6 +57,7 @@ pub trait Backend {
             }
         }
 
+        self.write_reset()?;
         self.flush()
     }
 

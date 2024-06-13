@@ -42,6 +42,9 @@ impl<W: Write> Backend for CrosstermBackend<W> {
     fn write_style(&mut self, style: &Style, last_style: &Style) -> io::Result<()> {
         write_style(self, style, last_style)
     }
+    fn write_reset(&mut self) -> Result<(), Self::Error> {
+        write!(self, "{}", Attribute::Reset)
+    }
 
     fn reset(&mut self) -> Result<(), Self::Error> {
         self.leave_alt_screen()?;
