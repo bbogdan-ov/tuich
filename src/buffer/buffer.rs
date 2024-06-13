@@ -212,8 +212,9 @@ impl RefDraw for Buffer {
 
         for y in 0..rect.height {
             for x in 0..rect.width {
-                let cell = self.get((x, y)).unwrap();
-                buf.set_cell((rect.x + x, rect.y + y), cell.clone());
+                if let Some(cell) = self.get((x, y)) {
+                    buf.set_cell((rect.x + x, rect.y + y), cell.clone());
+                }
             }
         }
 
