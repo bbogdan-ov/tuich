@@ -1,3 +1,4 @@
+#[cfg(feature="text-span")]
 use std::borrow::Cow;
 
 #[cfg(feature="text-span")]
