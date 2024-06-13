@@ -49,6 +49,11 @@ impl<'a> Text<'a> {
         self.content = content.into();
         self
     }
+    /// Set text style
+    pub fn style<S: Into<Style>>(mut self, style: S) -> Self {
+        self.style = style.into();
+        self
+    }
     /// Set horizontal text alignment
     pub fn align(mut self, align: Align) -> Self {
         self.align = align;
