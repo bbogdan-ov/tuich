@@ -28,6 +28,32 @@ pub enum Color {
     #[cfg_attr(feature="serde", serde(untagged))]
     Ansi(u8),
 }
+impl Color {
+    /// Create [Color] from color index
+    /// If index is too large, returns [Color::Reset]
+    pub fn from_index(index: usize) -> Self {
+        match index {
+            0 => Self::Reset,
+            1 => Self::Black,
+            2 => Self::Red,
+            3 => Self::Green,
+            4 => Self::Yellow,
+            5 => Self::Blue,
+            6 => Self::Magenta,
+            7 => Self::Cyan,
+            8 => Self::Gray,
+            9 => Self::LightBlack,
+            10 => Self::LightRed,
+            11 => Self::LightGreen,
+            12 => Self::LightYellow,
+            13 => Self::LightBlue,
+            14 => Self::LightMagenta,
+            15 => Self::LightCyan,
+            16 => Self::LightGray,
+            _ => Self::Reset
+        }
+    }
+}
 impl From<()> for Color {
     /// Creates a default [Color]
     fn from(_: ()) -> Self {
