@@ -97,6 +97,16 @@ impl<'a> Stack<'a> {
             overflow: Overflow::Clip
         }
     }
+    /// Creates a [Stack] with [Direction::Horizontal]
+    pub fn row(lengths: &'a [Length]) -> Self {
+        Self::new(lengths)
+            .direction(Direction::Horizontal)
+    }
+    /// Creates a [Stack] with [Direction::Vertical]
+    pub fn col(lengths: &'a [Length]) -> Self {
+        Self::new(lengths)
+            .direction(Direction::Vertical)
+    }
 
     //
 
