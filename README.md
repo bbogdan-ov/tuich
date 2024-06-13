@@ -1,6 +1,6 @@
 # TUICH
 
-A simple rust library to simplify TUIs develpment!
+A simple rust library to simplify TUIs development!
 
 > [!WARNING]
 > This lib is unstable, use it at your own risk!
