@@ -133,6 +133,17 @@ impl Stylized for Color {
         Style::from(*self)
     }
 }
+#[cfg(feature="text-stylized")]
+impl Stylized for (Color, Color) {
+    type Output = Style;
+
+    fn style<S: Into<Style>>(self, style: S) -> Self::Output {
+        style.into()
+    }
+    fn get_style(&self) -> Style {
+        Style::from(*self)
+    }
+}
 
 // Deserialization
 #[cfg(feature="serde")]
