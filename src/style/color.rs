@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use super::{Style, Stylized};
 
 // Consts
@@ -73,6 +75,31 @@ impl Color {
             15 => Self::LightCyan,
             16 => Self::LightGray,
             _ => Self::Reset
+        }
+    }
+}
+impl Display for Color {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Reset        => write!(f, "reset"),
+            Self::Black        => write!(f, "black"),
+            Self::Red          => write!(f, "red"),
+            Self::Green        => write!(f, "green"),
+            Self::Yellow       => write!(f, "yellow"),
+            Self::Blue         => write!(f, "blue"),
+            Self::Magenta      => write!(f, "magenta"),
+            Self::Cyan         => write!(f, "cyan"),
+            Self::Gray         => write!(f, "gray"),
+            Self::LightBlack   => write!(f, "light black"),
+            Self::LightRed     => write!(f, "light red"),
+            Self::LightGreen   => write!(f, "light green"),
+            Self::LightYellow  => write!(f, "light yellow"),
+            Self::LightBlue    => write!(f, "light blue"),
+            Self::LightMagenta => write!(f, "light magenta"),
+            Self::LightCyan    => write!(f, "light cyan"),
+            Self::LightGray    => write!(f, "light gray"),
+            Self::Rgb(r, g, b) => write!(f, "rgb {r}, {g}, {b}"),
+            Self::Ansi(v)      => write!(f, "ansi {v}"),
         }
     }
 }
