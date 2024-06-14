@@ -6,6 +6,48 @@ use serde::{Serialize, Deserialize};
 #[cfg(feature="text-stylized")]
 use crate::style::Stylized;
 
+// Consts
+/// Every color as foreground
+pub const FG_COLORS: &[Style] = &[
+    Style { fg: Some(Color::Reset), ..Style::cleared() },
+    Style { fg: Some(Color::Black), ..Style::cleared() },
+    Style { fg: Some(Color::Red), ..Style::cleared() },
+    Style { fg: Some(Color::Green), ..Style::cleared() },
+    Style { fg: Some(Color::Yellow), ..Style::cleared() },
+    Style { fg: Some(Color::Blue), ..Style::cleared() },
+    Style { fg: Some(Color::Magenta), ..Style::cleared() },
+    Style { fg: Some(Color::Cyan), ..Style::cleared() },
+    Style { fg: Some(Color::Gray), ..Style::cleared() },
+    Style { fg: Some(Color::LightBlack), ..Style::cleared() },
+    Style { fg: Some(Color::LightRed), ..Style::cleared() },
+    Style { fg: Some(Color::LightGreen), ..Style::cleared() },
+    Style { fg: Some(Color::LightYellow), ..Style::cleared() },
+    Style { fg: Some(Color::LightBlue), ..Style::cleared() },
+    Style { fg: Some(Color::LightMagenta), ..Style::cleared() },
+    Style { fg: Some(Color::LightCyan), ..Style::cleared() },
+    Style { fg: Some(Color::LightGray), ..Style::cleared() },
+];
+/// Every color as background
+pub const BG_COLORS: &[Style] = &[
+    Style { fg: Some(Color::Reset), bg: Some(Color::Reset), ..Style::cleared() },
+    Style { fg: Some(Color::Reset), bg: Some(Color::Black), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Red), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Green), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Yellow), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Blue), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Magenta), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::Cyan), ..Style::cleared() },
+    Style { fg: Some(Color::Reset), bg: Some(Color::Gray), ..Style::cleared() },
+    Style { fg: Some(Color::Reset), bg: Some(Color::LightBlack), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightRed), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightGreen), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightYellow), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightBlue), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightMagenta), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightCyan), ..Style::cleared() },
+    Style { fg: Some(Color::Black), bg: Some(Color::LightGray), ..Style::cleared() },
+];
+
 /// Underline kind
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature="serde", derive(Serialize, Deserialize), serde(rename_all="snake_case"))]
