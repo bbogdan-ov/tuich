@@ -78,6 +78,51 @@ impl Color {
         }
     }
 }
+impl Color {
+    /// Creates a [Style] with background of this color and a contrast foreground
+    /// 
+    /// # Notes
+    ///
+    /// - Don't works with [Color::Ansi] yet, foreground color will be always [Color::Black]
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// # use tuich::style::*;
+    /// assert_eq!(Color::Black.with_contrast_fg(),     Style::new(Color::LightGray, Color::Black));
+    /// assert_eq!(Color::Red.with_contrast_fg(),       Style::new(Color::Black, Color::Red));
+    /// assert_eq!(Color::LightGray.with_contrast_fg(), Style::new(Color::Black, Color::LightGray));
+    ///
+    /// assert_eq!(
+    ///     Color::Rgb(255, 255, 255).with_contrast_fg(),
+    ///     Style::new(Color::Black, Color::Rgb(255, 255, 255))
+    /// );
+    ///
+    /// assert_eq!(
+    ///     Color::Rgb(100, 255, 50).with_contrast_fg(),
+    ///     Style::new(Color::LightGray, Color::Rgb(100, 255, 50))
+    /// );
+    /// ```
+    pub fn with_contrast_fg(self) -> Style {
+        let fg = match self {
+            Self::Reset |
+            Self::Black |
+            Self::LightBlack |
+            Self::Gray => Color::LightGray,
+            Self::Rgb(r, g, b) => {
+                let mid = (r as u16 + g as u16 + b as u16) / 2;
+
+                // Background is dark
+                if mid < 380 { Color::LightGray }
+                // Background is light
+                else { Color::Black }
+            }
+            _ => Color::Black
+        };
+
+        (fg, self).into()
+    }
+}
 impl Display for Color {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
