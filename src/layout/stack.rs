@@ -81,6 +81,8 @@ pub enum Overflow {
 
 /// Stack
 /// Useful for creating layouts
+/// FIXME: it doesnt work well. For example [LengthKind::Factor] with `50%`,
+/// will fill `100%` of a rect
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Stack<'a> {
     lengths: &'a [Length],
