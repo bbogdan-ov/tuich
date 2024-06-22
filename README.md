@@ -2,6 +2,8 @@
 
 A simple rust library to simplify TUIs development!
 
+This library was heavily inspired by [ratatui.rs](https://ratatui.rs/)!
+
 > [!WARNING]
 > This lib is unstable, use it at your own risk!
 
