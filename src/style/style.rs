@@ -79,6 +79,7 @@ impl Style {
         Self {
             fg: Some(fg.into()),
             bg: Some(bg.into()),
+            underline_kind: Some(UnderlineKind::Line),
             ..Default::default()
         }
     }
@@ -90,7 +91,7 @@ impl Style {
             italic: None,
             reverse: None,
             underline: None,
-            underline_kind: None
+            underline_kind: Some(UnderlineKind::Line),
         }
     }
     pub const fn cleared() -> Self {
@@ -101,7 +102,7 @@ impl Style {
             italic: Some(false),
             reverse: Some(false),
             underline: Some(false),
-            underline_kind: None
+            underline_kind: Some(UnderlineKind::Line),
         }
     }
 
