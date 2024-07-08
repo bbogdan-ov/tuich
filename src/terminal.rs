@@ -4,8 +4,6 @@ use crate::{backend::Backend, buffer::{Buffer, Cell}};
 
 #[cfg(feature="backend-event")]
 use crate::backend::BackendEvent;
-#[cfg(feature="backend-event")]
-use crate::event::Event;
 
 /// Terminal
 #[derive(Debug, Clone)]
@@ -94,10 +92,10 @@ impl<B: BackendClassicMode> Terminal<B> {
 
 #[cfg(feature="backend-event")]
 impl<B: BackendEvent + Backend> BackendEvent for Terminal<B> {
-    type EventError = B::EventError;
+    type EventReader = B::EventReader;
 
-    fn read_events(&mut self) -> Result<Event, Self::EventError> {
-        self.backend.read_events()
+    fn event_reader(&self) -> Self::EventReader {
+        self.backend.event_reader()
     }
 }
 

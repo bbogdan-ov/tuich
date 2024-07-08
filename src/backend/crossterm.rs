@@ -6,7 +6,7 @@ use crossterm::{cursor, event::{DisableMouseCapture, EnableMouseCapture}, execut
 
 use crate::{event::{Event, Key, KeyCode, KeyMod, ModKeyCode, Mouse, MouseBtn}, style::{Color, Style, UnderlineKind}};
 
-use super::{Backend, BackendAltScreen, BackendEvent, BackendMouse, BackendRawMode};
+use super::{Backend, BackendAltScreen, BackendEvent, BackendEventReader, BackendMouse, BackendRawMode};
 
 /// [Crossterm](https://docs.rs/crossterm) backend
 /// 
@@ -97,7 +97,9 @@ impl Default for CrosstermBackend<io::Stdout> {
 }
 
 #[cfg(feature="backend-crossterm-event")]
-impl<W: Write> BackendEvent for CrosstermBackend<W> {
+#[derive(Debug, Clone)]
+pub struct CrosstermEventReader;
+impl BackendEventReader for CrosstermEventReader {
     type EventError = io::Error;
 
     fn read_events(&mut self) -> Result<Event, Self::EventError> {
@@ -114,6 +116,15 @@ impl<W: Write> BackendEvent for CrosstermBackend<W> {
             E::FocusGained => Event::Focus,
             E::FocusLost => Event::Blur,
         })
+    }
+}
+
+#[cfg(feature="backend-crossterm-event")]
+impl<W: Write> BackendEvent for CrosstermBackend<W> {
+    type EventReader = CrosstermEventReader;
+
+    fn event_reader(&self) -> Self::EventReader {
+        CrosstermEventReader
     }
 }
 

@@ -3,6 +3,31 @@ use crate::{buffer::Buffer, style::Style};
 #[cfg(feature="backend-event")]
 use crate::event::{Event, Key, Mouse};
 
+#[cfg(feature="backend-event")]
+pub trait BackendEventReader {
+    type EventError;
+
+    fn read_events(&mut self) -> Result<Event, Self::EventError>;
+    fn read_keys(&mut self) -> Result<Option<Key>, Self::EventError> {
+        let event = self.read_events()?;
+
+        if let Event::Key(key, _) = event {
+            Ok(Some(key))
+        } else {
+            Ok(None)
+        }
+    }
+    fn read_mouse(&mut self) -> Result<Option<Mouse>, Self::EventError> {
+        let event = self.read_events()?;
+
+        if let Event::Mouse(mouse, _, _) = event {
+            Ok(Some(mouse))
+        } else {
+            Ok(None)
+        }
+    }
+}
+
 /// Backend
 /// Base trait that every backend must have
 pub trait Backend {
@@ -93,27 +118,8 @@ pub trait BackendClassicMode: Backend {
 
 #[cfg(feature="backend-event")]
 pub trait BackendEvent {
-    type EventError;
-
-    fn read_events(&mut self) -> Result<Event, Self::EventError>;
-    fn read_keys(&mut self) -> Result<Option<Key>, Self::EventError> {
-        let event = self.read_events()?;
-
-        if let Event::Key(key, _) = event {
-            Ok(Some(key))
-        } else {
-            Ok(None)
-        }
-    }
-    fn read_mouse(&mut self) -> Result<Option<Mouse>, Self::EventError> {
-        let event = self.read_events()?;
-
-        if let Event::Mouse(mouse, _, _) = event {
-            Ok(Some(mouse))
-        } else {
-            Ok(None)
-        }
-    }
+    type EventReader: BackendEventReader;
+    fn event_reader(&self) -> Self::EventReader;
 }
 
 impl<T: BackendAltScreen + BackendRawMode> BackendClassicMode for T {

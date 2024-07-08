@@ -1,6 +1,10 @@
 use std::io;
 use tuich::{
-    backend::{crossterm::CrosstermBackend, BackendEvent},
+    backend::{
+        crossterm::CrosstermBackend,
+        BackendEvent,
+        BackendEventReader
+    },
     event::{Event, Key, KeyCode, KeyMod},
     style::{Color, Stylized},
     terminal::Terminal,
@@ -13,6 +17,8 @@ fn main() -> io::Result<()> {
     // Create and run a new terminal in "classic mode" with crossterm backend
     // Classic mode just hides the cursor, enters alternate screen and raw mode
     let mut term: Term = Terminal::classic(CrosstermBackend::default())?;
+    // Create an event reader, so we can pass it into another thread in the future
+    let mut event_reader = term.event_reader();
 
     let mut number: isize = 0;
 
@@ -20,7 +26,7 @@ fn main() -> io::Result<()> {
     draw_ui(&mut term, &number)?;
 
     loop {
-        match term.read_events()? {
+        match event_reader.read_events()? {
             Event::Key(key, _key_code) => match key {
                 // Exit after pressing on 'q'
                 Key(_, KeyCode::Char('q')) => break,

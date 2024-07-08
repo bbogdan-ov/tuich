@@ -1,6 +1,6 @@
 use std::io;
 
-use tuich::{backend::{crossterm::CrosstermBackend, Backend, BackendEvent}, buffer::Buffer, event::{Event, KeyCode}, layout::{Align, Clip, Rect, Wrap}, style::{Color, Style, Stylized, UnderlineKind}, terminal::Terminal, text::{Span, Text}, widget::{Block, Borders, Draw, List, Paragraph}};
+use tuich::{backend::{crossterm::CrosstermBackend, Backend, BackendEvent, BackendEventReader}, buffer::Buffer, event::{Event, KeyCode}, layout::{Align, Clip, Rect, Wrap}, style::{Color, Style, Stylized, UnderlineKind}, terminal::Terminal, text::{Span, Text}, widget::{Block, Borders, Draw, List, Paragraph}};
 use unicode_width::UnicodeWidthStr;
 
 struct State {
@@ -13,6 +13,7 @@ struct State {
 
 fn main() -> io::Result<()> {
     let mut term = Terminal::classic(CrosstermBackend(io::stdout()))?;
+    let mut event_reader = term.event_reader();
     let mut state = State {
         mouse_x: 0,
         mouse_y: 0,
@@ -26,7 +27,7 @@ fn main() -> io::Result<()> {
     draw_ui(&mut term, &state)?;
 
     loop {
-        match term.read_events()? {
+        match event_reader.read_events()? {
             Event::Key(_, KeyCode::Char('q')) => break,
             Event::Key(_, KeyCode::Char('w')) => {
                 state.text_wrap = match state.text_wrap {

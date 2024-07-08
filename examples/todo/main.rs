@@ -5,7 +5,7 @@ mod widget;
 use std::io;
 
 use app::App;
-use tuich::{backend::{crossterm::CrosstermBackend, BackendEvent}, terminal::Terminal, widget::RefDraw};
+use tuich::{backend::{crossterm::CrosstermBackend, BackendEvent, BackendEventReader}, terminal::Terminal, widget::RefDraw};
 
 type Term = Terminal<CrosstermBackend<io::Stdout>>;
 
@@ -27,12 +27,13 @@ impl From<bool> for Msg {
 
 fn main() -> io::Result<()> {
     let mut term: Term = Terminal::classic(CrosstermBackend::default())?;
+    let mut event_reader = term.event_reader();
     let mut app = App::new();
 
     draw_ui(&mut term, &app)?;
 
     loop {
-        let event = term.read_events()?;
+        let event = event_reader.read_events()?;
         let msg = app.handle_events(event);
 
         match msg {
