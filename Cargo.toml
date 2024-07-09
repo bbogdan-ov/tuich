@@ -51,6 +51,14 @@ backend-crossterm-event = ["backend-crossterm", "backend-event"]
 # Uses renames fields to `snake_case`
 serde = ["dep:serde"]
 
+# Enables MS Windows support features:
+# - `windows` for the [crossterm](https://docs.rs/crossterm) backend
+# - `backend-crossterm`
+windows = [
+	"backend-crossterm",
+	"crossterm/windows"
+]
+
 # Enables all text features:
 # - `text-span`
 # - `text-wrap`
