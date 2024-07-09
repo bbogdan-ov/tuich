@@ -55,13 +55,13 @@ impl Rect {
     /// Add margin to left
     pub fn margin_left(mut self, value: u16) -> Self {
         self.x = self.x.saturating_add(value);
-        self.width = self.width.saturating_sub(value * 2);
+        self.width = self.width.saturating_sub(value);
         self
     }
     /// Add margin to top
     pub fn margin_top(mut self, value: u16) -> Self {
         self.y = self.y.saturating_add(value);
-        self.height = self.height.saturating_sub(value * 2);
+        self.height = self.height.saturating_sub(value);
         self
     }
     /// Add margin to right
