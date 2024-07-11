@@ -29,6 +29,9 @@ impl Cell {
             display_width
         }
     }
+    pub fn empty<S: Into<Style>>(style: S) -> Self {
+        Self::new::<&str, S>(None, style)
+    }
     pub fn cleared() -> Self {
         Self {
             char: Some(" ".into()),
