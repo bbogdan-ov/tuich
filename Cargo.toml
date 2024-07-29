@@ -36,7 +36,6 @@ default = [
 	"backend-crossterm-event",
 	"widget-all",
 	"text-all",
-	"state-all",
 	"layout-all"
 ]
 
@@ -79,7 +78,7 @@ widget-all = [
 	"widget-paragraph",
 	"widget-block",
 	"widget-list",
-	"widget-prompt"
+	"widget-prompt",
 ]
 # Enables [Paragraph] widget and features:
 # - `text-span`
@@ -99,14 +98,6 @@ layout-all = [
 ]
 # Enables [Stack]
 layout-stack = []
-
-# Enables all states features:
-# - `state-prompt`
-state-all = [
-	"state-prompt"
-]
-# Enables [PromptState]
-state-prompt = []
 
 
 [[example]]

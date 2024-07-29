@@ -5,7 +5,6 @@ pub mod buffer;
 pub mod layout;
 pub mod widget;
 pub mod text;
-pub mod state;
 
 #[cfg(feature="backend-event")]
 pub mod event;
