@@ -16,12 +16,12 @@ pub trait Stylized: Sized {
     fn get_style(&self) -> Style;
 
     /// Set foreground color
-    fn fg<C: Into<Color>>(self, color: C) -> Self::Output {
+    fn fg<C: Into<Color>, O: Into<Option<C>>>(self, color: O) -> Self::Output {
         let style = self.get_style().fg(color);
         self.style(style)
     }
     /// Set background color
-    fn bg<C: Into<Color>>(self, color: C) -> Self::Output {
+    fn bg<C: Into<Color>, O: Into<Option<C>>>(self, color: O) -> Self::Output {
         let style = self.get_style().bg(color);
         self.style(style)
     }

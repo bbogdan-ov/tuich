@@ -120,32 +120,32 @@ impl Style {
         self
     }
 
-    pub fn fg<C: Into<Color>>(mut self, color: C) -> Self {
-        self.fg = Some(color.into());
+    pub fn fg<C: Into<Color>, O: Into<Option<C>>>(mut self, color: O) -> Self {
+        self.fg = color.into().map(|c| c.into());
         self
     }
-    pub fn bg<C: Into<Color>>(mut self, color: C) -> Self {
-        self.bg = Some(color.into());
+    pub fn bg<C: Into<Color>, O: Into<Option<C>>>(mut self, color: O) -> Self {
+        self.bg = color.into().map(|c| c.into());
         self
     }
-    pub fn bold(mut self, value: bool) -> Self {
-        self.bold = Some(value);
+    pub fn bold<B: Into<Option<bool>>>(mut self, value: B) -> Self {
+        self.bold = value.into();
         self
     }
-    pub fn italic(mut self, value: bool) -> Self {
-        self.italic = Some(value);
+    pub fn italic<B: Into<Option<bool>>>(mut self, value: B) -> Self {
+        self.italic = value.into();
         self
     }
-    pub fn reverse(mut self, value: bool) -> Self {
-        self.reverse = Some(value);
+    pub fn reverse<B: Into<Option<bool>>>(mut self, value: B) -> Self {
+        self.reverse = value.into();
         self
     }
-    pub fn underline(mut self, value: bool) -> Self {
-        self.underline = Some(value);
+    pub fn underline<B: Into<Option<bool>>>(mut self, value: B) -> Self {
+        self.underline = value.into();
         self
     }
-    pub fn underline_kind(mut self, kind: UnderlineKind) -> Self {
-        self.underline_kind = Some(kind);
+    pub fn underline_kind<K: Into<Option<UnderlineKind>>>(mut self, kind: K) -> Self {
+        self.underline_kind = kind.into();
         self
     }
 }

@@ -1,6 +1,6 @@
 use std::ops::Not;
 
-use tuich::{buffer::Buffer, event::{Event, Key, KeyCode}, layout::{Align, Clip, Length, Rect, Stack}, state::PromptState, style::{BorderKind, Color}, text::Text, widget::{Block, Draw, Prompt, RefDraw}};
+use tuich::{buffer::Buffer, event::{Event, Key, KeyCode}, layout::{Align, Clip, Rect}, state::PromptState, style::{BorderKind, Color}, text::Text, widget::{Block, Draw, Prompt, RefDraw}};
 
 use crate::{state::{Page, State, Todo}, widget::todo::TodoList, Msg};
 
@@ -180,28 +180,28 @@ fn draw_new_todo_page(app: &App, buf: &mut Buffer, rect: Rect) {
         .draw(buf, rect)
         .margin(1);
 
-    let rects = Stack::new([
-        Length::value(1),
-        Length::value(3),
-
-        Length::value(1),
-        Length::value(3),
-    ].as_ref())
-        .calc(borders_rect);
+    //let rects = Stack::new([
+    //    Length::value(1),
+    //    Length::value(3),
+    //
+    //    Length::value(1),
+    //    Length::value(3),
+    //].as_ref())
+    //    .calc(borders_rect);
 
     Text::new("Todo title:", Color::Gray)
-        .draw(buf, rects[0]);
+        .draw(buf, borders_rect.with_height(1));
     Prompt::new(&app.todo_title_prompt)
         .border_kind(BorderKind::Single)
         .border_style(Color::Gray)
         .focused(!app.is_desc_focused)
-        .draw(buf, rects[1]);
+        .draw(buf, borders_rect.add_y(1).with_height(3));
 
     Text::new("Todo description (optional):", Color::Gray)
-        .draw(buf, rects[2]);
+        .draw(buf, borders_rect.add_y(4).with_height(1));
     Prompt::new(&app.todo_desc_prompt)
         .border_kind(BorderKind::Single)
         .border_style(Color::Gray)
         .focused(app.is_desc_focused)
-        .draw(buf, rects[3]);
+        .draw(buf, borders_rect.add_y(5).with_height(3));
 }

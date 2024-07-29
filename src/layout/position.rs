@@ -97,7 +97,7 @@ impl Align {
 
         match self {
             Self::Start => 0,
-            Self::Center => (inside / 2).saturating_sub(target / 2),
+            Self::Center => ((inside as f32 / 2.0) - (target as f32 / 2.0)).round() as usize,
             Self::End => inside.saturating_sub(target)
         }
     }

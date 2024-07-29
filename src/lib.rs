@@ -9,3 +9,6 @@ pub mod state;
 
 #[cfg(feature="backend-event")]
 pub mod event;
+
+pub use unicode_width;
+pub use unicode_segmentation;

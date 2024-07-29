@@ -1,4 +1,4 @@
-use tuich::{buffer::Buffer, layout::{Align, Rect, Wrap}, style::{BorderKind, Color, Style, Stylized}, text::Text, widget::{Clear, Draw, Line, List}};
+use tuich::{buffer::{Buffer, Cell}, layout::{Align, Rect, Wrap}, style::{BorderKind, Color, Style, Stylized}, text::Text, widget::{Clear, Draw, Line, List}};
 
 use crate::state::Todo;
 
@@ -51,7 +51,7 @@ impl<'a> Draw for TodoWidget<'a> {
         let todo_rect = rect.with_height(text_rect.height);
 
         if is_cur {
-            Clear::new(clear_style.bold(true))
+            Clear::new(Cell::empty(clear_style.bold(true)))
                 .draw(buf, todo_rect.with_height(1));
         }
 

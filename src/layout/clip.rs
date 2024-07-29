@@ -91,15 +91,16 @@ impl<T: Into<CompactString>> From<T> for Clip {
 }
 
 fn clip_str<T: AsRef<str>>(clip: &Clip, string: T, max_width: usize, align: Align) -> String {
-    if clip.eq(&Clip::Hide) {
-        return String::new();
-    }
-
     let string = string.as_ref();
     let str_width = string.width();
 
+    // Do nothing if there is no overflow or if the clip is None
     if str_width <= max_width || clip.eq(&Clip::None) {
         return string.to_string();
+    }
+    // Return an empty string if an overflow has occured and clip is Hide
+    if clip.eq(&Clip::Hide) {
+        return String::new();
     }
 
     let end_str = clip.to_string().unwrap_or(CompactString::default());
