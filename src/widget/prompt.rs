@@ -1,7 +1,6 @@
 use crate::{
     buffer::{Buffer, Cell},
     layout::Rect,
-    state::PromptState,
     style::{BorderKind, Color, Style},
 };
 

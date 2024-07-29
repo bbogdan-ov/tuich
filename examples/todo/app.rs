@@ -1,6 +1,6 @@
 use std::ops::Not;
 
-use tuich::{buffer::Buffer, event::{Event, Key, KeyCode}, layout::{Align, Clip, Rect}, state::PromptState, style::{BorderKind, Color}, text::Text, widget::{Block, Draw, Prompt, RefDraw}};
+use tuich::{buffer::Buffer, event::{Event, Key, KeyCode}, layout::{Align, Clip, Rect}, style::{BorderKind, Color}, text::Text, widget::{prompt::PromptState, Block, Draw, Prompt, RefDraw}};
 
 use crate::{state::{Page, State, Todo}, widget::todo::TodoList, Msg};
 

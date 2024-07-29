@@ -87,9 +87,8 @@ widget-paragraph = ["text-span"]
 widget-block = []
 # Enables [List] widget
 widget-list = []
-# Enables [Prompt] widget and features:
-# - `state-prompt`
-widget-prompt = ["state-prompt"]
+# Enables [Prompt] widget
+widget-prompt = []
 
 # Enables all layout features:
 # - `layout-stack`
@@ -123,5 +122,4 @@ required-features = [
 	"backend-crossterm-event",
 	"widget-all",
 	"text-all",
-	"state-all"
 ]

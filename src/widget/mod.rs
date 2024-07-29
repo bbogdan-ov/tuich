@@ -25,7 +25,7 @@ mod paragraph;
 #[cfg(feature="widget-paragraph")]
 pub use paragraph::Paragraph;
 
-#[cfg(feature="state-prompt")]
+#[cfg(feature="widget-prompt")]
 pub mod prompt;
-#[cfg(feature="state-prompt")]
+#[cfg(feature="widget-prompt")]
 pub use prompt::Prompt;
