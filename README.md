@@ -15,7 +15,7 @@ For now you can only install TUICH via git:
 tuich = { git = "https://github.com/bbogdan-ov/tuich" }
 ```
 
-I think TUICH isn't ready to be uploded to [crates.io](https://crates.io) yet
+I think TUICH isn't ready to be uploaded to [crates.io](https://crates.io) yet
 
 ## Simple example
 
