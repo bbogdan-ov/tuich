@@ -75,35 +75,32 @@ impl PromptState {
     //
 
     /// Handle key events
-    /// Uses most of the default bash keymaps! (Such as `Ctrl+U` to delete to the line start)
-    /// Returns whether state has been updated or not
+    /// Uses most of the default emacs keymaps! (Such as `Ctrl+U` to delete to the line start)
+    /// Returns whether the state has been updated or not
     #[cfg(feature = "backend-event")]
     pub fn handle_keys(&mut self, key: Key) -> bool {
         use self::PromptAction as Action;
         use crate::event::{KeyCode as C, KeyMod};
 
-        const CTRL: KeyMod = KeyMod::Ctrl;
-        const ALT: KeyMod = KeyMod::Alt;
-
         match key {
-            Key(CTRL, C::Right) => self.action(Action::MoveNextWord),
-            Key(CTRL, C::Left) => self.action(Action::MovePrevWord),
-            Key(ALT, C::Char('f')) => self.action(Action::MoveNextWord),
-            Key(ALT, C::Char('b')) => self.action(Action::MovePrevWord),
+            Key(KeyMod::Ctrl, C::Right) => self.action(Action::MoveNextWord),
+            Key(KeyMod::Ctrl, C::Left) => self.action(Action::MovePrevWord),
+            Key(KeyMod::Alt, C::Char('f')) => self.action(Action::MoveNextWord),
+            Key(KeyMod::Alt, C::Char('b')) => self.action(Action::MovePrevWord),
             Key(_, C::Left) => self.action(Action::MoveLeft(1)),
             Key(_, C::Right) => self.action(Action::MoveRight(1)),
-            Key(CTRL, C::Char('b')) => self.action(Action::MoveLeft(1)),
-            Key(CTRL, C::Char('f')) => self.action(Action::MoveRight(1)),
-            Key(CTRL, C::Char('a')) => self.action(Action::MoveStart),
-            Key(CTRL, C::Char('e')) => self.action(Action::MoveEnd),
+            Key(KeyMod::Ctrl, C::Char('b')) => self.action(Action::MoveLeft(1)),
+            Key(KeyMod::Ctrl, C::Char('f')) => self.action(Action::MoveRight(1)),
+            Key(KeyMod::Ctrl, C::Char('a')) => self.action(Action::MoveStart),
+            Key(KeyMod::Ctrl, C::Char('e')) => self.action(Action::MoveEnd),
             Key(_, C::Home) => self.action(Action::MoveStart),
             Key(_, C::End) => self.action(Action::MoveEnd),
 
-            Key(CTRL, C::Char('w')) => self.action(Action::DeletePrevWord),
+            Key(KeyMod::Ctrl, C::Char('w')) => self.action(Action::DeletePrevWord),
             // Same as Ctrl + Backspace
-            Key(CTRL, C::Char('h')) => self.action(Action::DeletePrevWord),
-            Key(CTRL, C::Char('u')) => self.action(Action::DeleteToStart),
-            Key(CTRL, C::Char('k')) => self.action(Action::DeleteToEnd),
+            Key(KeyMod::Ctrl, C::Char('h')) => self.action(Action::DeletePrevWord),
+            Key(KeyMod::Ctrl, C::Char('u')) => self.action(Action::DeleteToStart),
+            Key(KeyMod::Ctrl, C::Char('k')) => self.action(Action::DeleteToEnd),
             Key(_, C::Backspace) => self.action(Action::DeleteLeft(1)),
             Key(_, C::Delete) => self.action(Action::DeleteRight(1)),
 
@@ -283,6 +280,10 @@ impl PromptState {
     pub fn value(&self) -> &String {
         &self.value
     }
+    pub fn set_value(&mut self, value: String) {
+        self.value = value;
+        self.calc_width();
+    }
     /// Cursor position
     pub fn cursor_pos(&self) -> usize {
         self.cursor_pos
@@ -307,7 +308,7 @@ impl<'a> Prompt<'a> {
         Self {
             state,
             style: Style::default(),
-            cursor_style: Style::new(Color::Reset, Color::Reset).reverse(true),
+            cursor_style: Style::new(Color::Black, Color::LightGray),
             focused: true,
             borders: None,
         }
