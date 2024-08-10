@@ -23,11 +23,12 @@ pub enum Event {
 }
 
 /// Key modifier
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Default, Clone, Copy, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize), serde(rename_all="snake_case"))]
 pub enum KeyMod {
     #[default]
     #[cfg_attr(feature="serde", serde(alias=""))]
+    Any,
     None,
     Shift,
     Ctrl,
@@ -48,7 +49,28 @@ impl KeyMod {
             Self::ShiftAlt     => (true,  false, true),
             Self::ShiftCtrlAlt => (true,  true,  true),
             Self::CtrlAlt      => (false, true,  true),
-            Self::None         => (false, false, false)
+            Self::None         => (false, false, false),
+            Self::Any          => (false, false, false),
+        }
+    }
+}
+impl PartialEq for KeyMod {
+    /// This method tests for `self` and `other` values to be equal, and is used
+    /// Will always return `true` if `self` or `other` are equal to [KeyMod::Any]
+    fn eq(&self, other: &Self) -> bool {
+        match other {
+            Self::Any => true,
+            _ => match self {
+                Self::Any          => true,
+                Self::Shift        => match other { Self::Shift => true, _ => false },
+                Self::Ctrl         => match other { Self::Ctrl => true, _ => false },
+                Self::Alt          => match other { Self::Alt => true, _ => false },
+                Self::ShiftCtrl    => match other { Self::ShiftCtrl => true, _ => false },
+                Self::ShiftAlt     => match other { Self::ShiftAlt => true, _ => false },
+                Self::ShiftCtrlAlt => match other { Self::ShiftCtrlAlt => true, _ => false },
+                Self::CtrlAlt      => match other { Self::CtrlAlt => true, _ => false },
+                Self::None         => match other { Self::None => true, _ => false },
+            }
         }
     }
 }
