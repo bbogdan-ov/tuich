@@ -60,7 +60,7 @@ pub enum UnderlineKind {
 }
 
 /// Style
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature="serde", derive(Serialize, Deserialize), serde(rename_all="snake_case", default))]
 pub struct Style {
     pub fg: Option<Color>,
@@ -149,9 +149,14 @@ impl Style {
         self
     }
 }
+impl Default for Style {
+    fn default() -> Self {
+        Self::cleared()
+    }
+}
 impl From<()> for Style {
     fn from(_: ()) -> Self {
-        Self::default()
+        Self::empty()
     }
 }
 impl From<Color> for Style {
